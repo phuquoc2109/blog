@@ -1,0 +1,58 @@
+.settings {
+    display: flex;
+    &__wrapper {
+        flex: 9;
+        padding: 20px;
+        &__title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            &__update {
+                font-size: 30px;
+                margin-bottom: 20px;
+                color: lightcoral;
+            }
+            &__delete {
+                color: tomato;
+                font-size: 14px;
+                cursor: pointer;
+            }
+        }
+    }
+    &__form {
+        display: flex;
+        flex-direction: column;
+        &__PP {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            >img {
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            >label>i {
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                color: white;
+                background-color: lightcoral;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-left: 10px;
+                cursor: pointer;
+            }
+        }
+        >label {
+            font-size: 20px;
+            margin: 10px 0px;
+        }
+        &__submit {
+            width: 150px;
+            align-self: center;
+            border-radius: 10px !important;
+        }
+    }
+}
