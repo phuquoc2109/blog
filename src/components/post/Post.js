@@ -1,21 +1,30 @@
 import React from 'react'
 import './post.scss'
+import {Link} from 'react-router-dom'
 
-export default function Post() {
+export default function Post({post}) {
     return (
         <div className="post">
-            <img className="post__img" src="https://images.pexels.com/photos/9305213/pexels-photo-9305213.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" />
+            {
+            post.photo &&
+                <img className="post__img" src={post.photo} alt="" />
+            }
             <div className="post__info">
                 <div className="post__info__cats">
-                    <span className="post__info__cats__cat">Music</span>
-                    <span className="post__info__cats__cat">Life</span>
+                    {
+                        post.categories.map((categ, index) => (
+                            <span key={index} className="post__info__cats__cat">{categ.name}</span>
+                        ))
+                    }
                 </div>
-                <span className="post__info__title">
-                    Lorem ipsum dolor sit amet
-                </span>
+                <Link to={`/post/${post._id}`} className="link">
+                    <span className="post__info__title">
+                    {post.title}
+                    </span>
+                </Link>
                 <hr />
-                <span className="post__info__data">1 hour ago</span>
-                <p className="post__info__des">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas error culpa odit fugit tempora, suscipit dolor libero nam, cumque aut voluptatum corrupti eveniet minus repellat voluptate sint ipsum, maiores voluptates.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas error culpa odit fugit tempora, suscipit dolor libero nam, cumque aut voluptatum corrupti eveniet minus repellat voluptate sint ipsum, maiores voluptates.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas error culpa odit fugit tempora, suscipit dolor libero nam, cumque aut voluptatum corrupti eveniet minus repellat voluptate sint ipsum, maiores voluptates.</p>
+                <span className="post__info__data">{new Date(post.createdAt).toDateString()}</span>
+                <p className="post__info__des">{post.desc}</p>
             </div>
         </div>
     )

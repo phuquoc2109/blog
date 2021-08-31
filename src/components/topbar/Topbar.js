@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './topbar.scss'
 import Avatar from '@material-ui/core/Avatar';
-import {Link} from'react-router-dom'
+import {Link, useHistory} from'react-router-dom'
+import { Context } from '../../context/Context';
+import { Logout } from '../../context/Actions';
 
 export default function Topbar() {
     const [checkActiveNav, setCheckActiveNav] = useState(true);
     const [checkScroll, setCheckScroll] = useState(false)
-
+    const history = useHistory();
     const handleScroll = () => {
         if(document.body.scrollTop > 100 || document.documentElement.scrollTop > 100){
             setCheckScroll(true);
@@ -21,8 +23,15 @@ export default function Topbar() {
         }
     }, [])
 
-    const user = false
+    const handleSelect  = () => {
+        setCheckActiveNav(true)
+    }
 
+    const {user, dispatch} = useContext(Context)
+    const handleLogout = () =>{
+        dispatch(Logout())
+        history.push("/login")
+    }
     return (
         <div className={checkScroll ? 'top shrink' : 'top'}>
             <div className="top__left">
@@ -33,22 +42,22 @@ export default function Topbar() {
             </div>
             <div className="top__center">
                 <ul className={checkActiveNav ? 'top__center__list' : 'top__center__list__active'}>
-                    <Link to="/" className='link'><li className="top__center__list__item">HOME</li></Link>
-                    <Link to="/about" className='link'><li className="top__center__list__item">ABOUT</li></Link>
-                    <Link to="/contact" className='link'><li className="top__center__list__item">CONTACT</li></Link>
-                    <Link to="/write" className='link'><li className="top__center__list__item">WRITE</li></Link>
-                    <Link to="/logout" className='link'><li className="top__center__list__item">{user? 'LOGOUT' : ''}</li></Link>
+                    <Link to="/" className='link'><li onClick={handleSelect} className={`top__center__list__item`}>HOME</li></Link>
+                    <Link to="/about" className='link'><li onClick={handleSelect} className={`top__center__list__item`}>ABOUT</li></Link>
+                    <Link to="/contact" className='link'><li onClick={handleSelect} className={`top__center__list__item`}>CONTACT</li></Link>
+                    <Link to="/write" className='link'><li onClick={handleSelect} className={`top__center__list__item`}>WRITE</li></Link>
+                    <li onClick={handleLogout} className={`top__center__list__item`}  style={{cursor:'pointer', color:'darkgoldenrod', fontWeight:'bold'}} >{user? 'LOGOUT' : ''}</li>
                 </ul>
             </div>
             <div className="top__right">
                 {
-                    user ? (<Avatar alt="Cindy Baker" src="https://images.pexels.com/photos/2829067/pexels-photo-2829067.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" />):
+                    user ? (<Avatar alt="Cindy Baker" src={user.profilePic} />):
                     ( <>
-                        <Link className="link" to="/login">Login</Link>
-                        <Link className="link" to="/register">Register</Link>
+                        <Link style={{marginRight:'10px'}} className="link top__center__list__item" to="/login">LOGIN</Link>
+                        <Link className="link top__center__list__item" to="/register">REGISTER</Link>
                     </>)
                 }
-                <i className="fas fa-search"></i>
+                <i style={{marginRight:'10px'}} className="fas fa-search"></i>
             </div>
             <div onClick={() => setCheckActiveNav(!checkActiveNav)} className="top__toggle">
                 {

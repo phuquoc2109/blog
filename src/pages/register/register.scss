@@ -23,9 +23,9 @@
         }
     }
     &__login {
-        position: absolute;
+        position: absolute !important;
         top: 60px;
         right: 20px;
-        border-radius: 10px;
+        border-radius: 10px !important;
     }
 }

@@ -34,6 +34,12 @@
                 font-size: 18px;
                 font-weight: 300;
                 text-decoration: none;
+                transition: .1s ease-in-out;
+                &:hover {
+                    color: rgb(241, 113, 113);
+                    transition: .1s ease-in-out;
+                    border-bottom: 3px solid tomato;
+                }
             }
         }
     }
@@ -49,11 +55,15 @@
     z-index: 100;
 }
 
+.active {
+    color: rgb(241, 113, 113);
+    border-bottom: 3px solid tomato;
+}
+
 @media screen and(max-width:800px) {
     .top {
-        &__left,
         &__right {
-            flex: 3;
+            flex: 9;
             display: flex;
             justify-content: center;
             align-items: center;
