@@ -1,5 +1,6 @@
 .singlePost {
     flex: 9;
+    width: 70%;
     &__wrapper {
         padding: 20px;
         padding-right: 0;
@@ -44,6 +45,8 @@
         font-family: 'Varela Round', sans-serif;
     }
     &__des {
+        min-height: 300px;
+        word-wrap: break-word;
         color: #666;
         font-style: 18px;
         text-align: justify;
@@ -52,6 +55,16 @@
             margin-left: 20px;
             font-size: 30px;
             font-weight: 600;
+        }
+        &__input {
+            border: none;
+            color: #666;
+            font-style: 18px;
+            text-align: justify;
+            line-height: 25px;
+            &:focus {
+                outline: none;
+            }
         }
     }
 }

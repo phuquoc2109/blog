@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function Register() {
     const [username, setUsername] = useState("");
@@ -68,9 +69,11 @@ export default function Register() {
                     error ? <Alert severity="warning">Something went wrong!</Alert> : ''
                 }
             </form>
-            <Button className="register__login" variant="contained" color="secondary">
-                Login
-            </Button> 
+            <Link to="/login">
+                <Button className="register__login" variant="contained" color="secondary">
+                    Login
+                </Button> 
+            </Link>
             
         </div>
     )

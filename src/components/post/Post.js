@@ -3,11 +3,14 @@ import './post.scss'
 import {Link} from 'react-router-dom'
 
 export default function Post({post}) {
+
+    const PF = "http://localhost:5000/images/"
+
     return (
         <div className="post">
             {
             post.photo &&
-                <img className="post__img" src={post.photo} alt="" />
+                <img className="post__img" src={PF + post.photo} alt="" />
             }
             <div className="post__info">
                 <div className="post__info__cats">

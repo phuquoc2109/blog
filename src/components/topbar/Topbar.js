@@ -8,7 +8,9 @@ import { Logout } from '../../context/Actions';
 export default function Topbar() {
     const [checkActiveNav, setCheckActiveNav] = useState(true);
     const [checkScroll, setCheckScroll] = useState(false)
-    const history = useHistory();
+    
+    const PE = "http://localhost:5000/images/"
+
     const handleScroll = () => {
         if(document.body.scrollTop > 100 || document.documentElement.scrollTop > 100){
             setCheckScroll(true);
@@ -30,7 +32,8 @@ export default function Topbar() {
     const {user, dispatch} = useContext(Context)
     const handleLogout = () =>{
         dispatch(Logout())
-        history.push("/login")
+        // history.push("/login")
+        window.location.replace("/login");
     }
     return (
         <div className={checkScroll ? 'top shrink' : 'top'}>
@@ -51,7 +54,7 @@ export default function Topbar() {
             </div>
             <div className="top__right">
                 {
-                    user ? (<Avatar alt="Cindy Baker" src={user.profilePic} />):
+                    user ? (<Link to="/settings"><Avatar alt="Cindy Baker" src={PE + user.profilePic} /></Link>):
                     ( <>
                         <Link style={{marginRight:'10px'}} className="link top__center__list__item" to="/login">LOGIN</Link>
                         <Link className="link top__center__list__item" to="/register">REGISTER</Link>

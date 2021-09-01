@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { Context } from '../../context/Context';
 import axios from 'axios';
 import { LoginFailure, LoginStart, LoginSuccess } from '../../context/Actions';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 
 export default function Login() {
@@ -26,7 +26,7 @@ export default function Login() {
                 password: password,
             })
             dispatch(LoginSuccess(res.data))
-            history.push("/")
+            window.location.replace("/");
         } catch (error) {
             dispatch(LoginFailure())
         }
@@ -68,9 +68,11 @@ export default function Login() {
                         Login
                 </Button> 
             </form>
-            <Button className="login__register" variant="contained" color="secondary">
-                Register
-            </Button> 
+            <Link to="/register">
+                <Button className="login__register" variant="contained" color="secondary">
+                    Register
+                </Button> 
+            </Link>
         </div>
     )
 }
