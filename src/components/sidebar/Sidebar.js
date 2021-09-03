@@ -5,21 +5,23 @@ import './sidebar.scss'
 
 export default function Sidebar() {
     const [cats, setCat] = useState([]);
+    const PF = "http://localhost:5000/images/";
+    const srcImg = "1630465489114c41a560464a697f8ceb7.jpg"; // In server
 
     useEffect(() => {
         const getCats = async () => {
-            const res = await axios.get("http://localhost:5000/api/categories");
+            const res = await axios.get("/categories");
             setCat(res.data);
         }
         getCats();
     }, [])
 
     return (
-        <div className="sidebar">
+        <div className="sidebar sidebar__sticky">
             <div className="sidebar__item">
                 <span className="sidebar__item__title">ABOUT ME</span>
-                <img className="sidebar__item__img" src="https://images.pexels.com/photos/1386602/pexels-photo-1386602.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=250&w=150" alt="" />
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus voluptates, harum ea reiciendis, tempore quasi blanditiis ut aperiam est nobis itaque aut quos velit cumque molestias neque repellendus omnis delectus fugiat nesciunt, exercitationem inventore consectetur porro! Facilis soluta, officiis itaque natus aut, ipsa repellendus, officia animi necessitatibus quia saepe quod.</p>
+                <img className="sidebar__item__img" src={ PF + srcImg} alt="" />
+                <p>My name is Duong Phu Quoc, this is my blog. Here, there are blogs about my life. You can also write your blog here if you want. <p><b>Best regards!</b></p></p>
             </div>
             <div className="sidebar__item">
                 <span className="sidebar__item__title">CATEGORIES</span>

@@ -1,11 +1,13 @@
-import React, { useContext, useRef, useState } from 'react'
-import './login.scss'
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Context } from '../../context/Context';
+import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { LoginFailure, LoginStart, LoginSuccess } from '../../context/Actions';
-import { Link, useHistory } from 'react-router-dom';
+import { Context } from '../../context/Context';
+import './login.scss';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Login() {
@@ -14,14 +16,13 @@ export default function Login() {
     // const passwordRef = useRef();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const history = useHistory();
-    const {user, dispatch, isFetching} = useContext(Context);
+    const { dispatch, isFetching} = useContext(Context);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(LoginStart())
         try {
-            const res = await axios.post("http://localhost:5000/api/auth/login",{
+            const res = await axios.post("/auth/login",{
                 username: username,
                 password: password,
             })
@@ -29,11 +30,12 @@ export default function Login() {
             window.location.replace("/");
         } catch (error) {
             dispatch(LoginFailure())
+            toast.error("Login failed")
         }
         
     }
    
-
+    toast.configure();
     return (
         <div className="login">
             <span className="login__title">Login</span>

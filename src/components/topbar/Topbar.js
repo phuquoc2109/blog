@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
-import './topbar.scss'
 import Avatar from '@material-ui/core/Avatar';
-import {Link, useHistory} from'react-router-dom'
-import { Context } from '../../context/Context';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Logout } from '../../context/Actions';
+import { Context } from '../../context/Context';
+import './topbar.scss';
 
 export default function Topbar() {
     const [checkActiveNav, setCheckActiveNav] = useState(true);
@@ -54,13 +54,13 @@ export default function Topbar() {
             </div>
             <div className="top__right">
                 {
-                    user ? (<Link to="/settings"><Avatar alt="Cindy Baker" src={PE + user.profilePic} /></Link>):
+                    user ? (<Link to="/settings"><Avatar alt="Cindy Baker" src={user.profilePic ? PE +user.profilePic : null} /></Link>):
                     ( <>
                         <Link style={{marginRight:'10px'}} className="link top__center__list__item" to="/login">LOGIN</Link>
                         <Link className="link top__center__list__item" to="/register">REGISTER</Link>
                     </>)
                 }
-                <i style={{marginRight:'10px'}} className="fas fa-search"></i>
+                {/* <i style={{marginRight:'10px'}} className="fas fa-search"></i> */}
             </div>
             <div onClick={() => setCheckActiveNav(!checkActiveNav)} className="top__toggle">
                 {

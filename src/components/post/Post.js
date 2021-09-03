@@ -14,11 +14,7 @@ export default function Post({post}) {
             }
             <div className="post__info">
                 <div className="post__info__cats">
-                    {
-                        post.categories.map((categ, index) => (
-                            <span key={index} className="post__info__cats__cat">{categ.name}</span>
-                        ))
-                    }
+                    <span  className="post__info__cats__cat">{post.categories}</span>
                 </div>
                 <Link to={`/post/${post._id}`} className="link">
                     <span className="post__info__title">

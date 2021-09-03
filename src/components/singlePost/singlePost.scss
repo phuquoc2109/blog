@@ -40,9 +40,14 @@
         margin-bottom: 20px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         font-size: 16px;
         color: #b39659;
         font-family: 'Varela Round', sans-serif;
+        &__share {
+            display: flex;
+            align-items: center;
+        }
     }
     &__des {
         min-height: 300px;

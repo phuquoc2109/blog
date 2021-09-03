@@ -1,9 +1,12 @@
+import { Avatar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../../components/sidebar/Sidebar';
-import { UpdateFailure, UpdateStart, UpdateSuccess } from '../../context/Actions';
+import { Logout, UpdateFailure, UpdateStart, UpdateSuccess } from '../../context/Actions';
 import { Context } from '../../context/Context';
 import './settings.scss';
 
@@ -37,32 +40,53 @@ export default function Settings() {
                 
             }
         };
-        try {
-            const res = await axios.put("/users/" + user._id, updateUser)
-            dispatch(UpdateSuccess(res.data))
-            window.location.reload();
-        } catch (err) {
-            dispatch(UpdateFailure())
+        if(username && email && password){
+            try {
+                const res = await axios.put("/users/" + user._id, updateUser)
+                dispatch(UpdateSuccess(res.data))
+                window.location.reload();
+                toast.success("Account edit successful")
+            } catch (err) {
+                dispatch(UpdateFailure())
+            }
+        }else{
+            toast.error("You have not entered changes")
         }
     }
 
+    const handleDelete = async () =>{
+        try {
+            await axios.delete(`/users/${user._id}`, {data: {userId: user._id}});
+            dispatch(Logout())
+            window.location.replace("/")
+        } catch (error) {
+            
+        }
+        toast.success("Delete post successfully")
+    }
+
+
+    toast.configure();
     return (
         <div className="settings">
             <div className="settings__wrapper">
                 <div className="settings__wrapper__title">
                     <span className="settings__wrapper__title__update">Update Your Account</span>
-                    <span className="settings__wrapper__title__delete">Delete Account</span>
+                    <span onClick={handleDelete} className="settings__wrapper__title__delete">Delete Account</span>
                 </div>
                 <form className="settings__form" onSubmit={handleSubmit}>
                     <label htmlFor="">Profile Picture</label>
                     <div className="settings__form__PP">
-                        <img 
-                        src={file ? URL.createObjectURL(file) : PE + user.profilePic} 
-                        alt="" 
-                        />
-                        <label htmlFor="fileInput">
-                            <i className="far fa-user-circle"></i>
-                        </label>
+                       <div className="settings__form__PP__1">
+                        <Avatar style={{width: '100px', height:'100px'}} src={file ? URL.createObjectURL(file) : user.profilePic ? PE + user.profilePic : null}  />
+                            <label htmlFor="fileInput">
+                                <i className="far fa-user-circle"></i>
+                            </label>
+                       </div>
+                       <div className="settings__form__PP__2">
+                            <span>username: <b>{user.username}</b></span>
+                            <span>email: <b>{user.email}</b></span>
+                       </div>
                     </div>
                     <input 
                     type="file" 
@@ -73,7 +97,7 @@ export default function Settings() {
                     <label htmlFor="">Username</label>
                     <TextField 
                     type="text" 
-                    placeholder={user.username} 
+                    placeholder="username..."
                     label="Username" 
                     variant="filled" 
                     onChange={(e) => setUsername(e.target.value)}
@@ -81,7 +105,7 @@ export default function Settings() {
                     <label htmlFor="">Email</label>
                     <TextField 
                     type="email" 
-                    placeholder={user.email} 
+                    placeholder="email..." 
                     label="Email" 
                     variant="filled" 
                     onChange={(e) => setEmail(e.target.value)}

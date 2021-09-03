@@ -4,6 +4,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Context } from '../../context/Context';
 import './singlePost.scss';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {
+    FacebookShareButton, FacebookIcon,
+    TwitterShareButton, TwitterIcon,
+    EmailShareButton,EmailIcon
+
+  } from "react-share";
 
 export default function SinglePost() {
     const location = useLocation();
@@ -17,7 +25,7 @@ export default function SinglePost() {
 
     useEffect(()=> {
         const getPost = async () => {
-            const res = await axios.get("http://localhost:5000/api/posts/" + path);
+            const res = await axios.get("/posts/" + path);
             setPost(res.data);
             setTitle(res.data.title);
             setDesc(res.data.desc);
@@ -27,11 +35,12 @@ export default function SinglePost() {
 
     const handleDelete = async () =>{
         try {
-            await axios.delete(`/posts/${post._id}`  , {data: {username: user.username}});
+            await axios.delete(`/posts/${post._id}` , {data: {username: user.username}});
             window.location.replace("/")
         } catch (error) {
             
         }
+        toast.success("Delete post successfully")
     }
 
     const handleUpdate = async () => {
@@ -46,8 +55,10 @@ export default function SinglePost() {
         } catch (error) {
             
         }
+        toast.success("Edited post successfully")
     }
- 
+    
+    const shareUrl = window.location.href; // Location post share
     return (
         <div className="singlePost">
             <div className="singlePost__wrapper">
@@ -83,7 +94,22 @@ export default function SinglePost() {
             }
            <div className="singlePost__info">
                <span className="singlePost__info__author">Author: <Link to={`/?user=${post.username}`} className="link"><b>{post.username}</b></Link></span>
+               <span className="singlePost__info__author">Categories: <Link to={`/?cat=${post.categories}`} className="link"><b>{post.categories}</b></Link></span>
                <span className="singlePost__info__date">{new Date(post.createdAt).toDateString()}</span>
+               <div className="singlePost__info__share">
+                   <span>
+                    Share: 
+                   </span>
+                   <FacebookShareButton url={shareUrl} quote={title} hashtag={post.categories} >
+                       <FacebookIcon size={40} round={true} />
+                    </FacebookShareButton>
+                    <TwitterShareButton url={shareUrl} quote={title} hashtag={post.categories} >
+                       <TwitterIcon size={40} round={true} />
+                    </TwitterShareButton>
+                    <EmailShareButton url={shareUrl} quote={title} hashtag={post.categories} >
+                       <EmailIcon size={40} round={true} />
+                    </EmailShareButton>
+                </div>
            </div>
            {
                updateMode? (

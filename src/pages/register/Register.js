@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {
     const [username, setUsername] = useState("");
@@ -15,19 +17,26 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(false);
-        try {
-            const res = await axios.post("http://localhost:5000/api/auth/register", {
-            username,
-            email,
-            password,
-        });
-        res.data && window.location.replace("/login");
-        } catch (error) {
+        if(email && password && username){
+            try {
+                const res = await axios.post("/auth/register", {
+                username,
+                email,
+                password,
+            });
+            res.data && window.location.replace("/login");
+            toast.success("Successful account registration");
+            } catch (error) {
+                setError(true);
+                toast.warning("Username or Email has been duplicated")
+            }
+        }else{
             setError(true);
+            toast.warning("You have not entered your account information")
         }
-        
     }
 
+    toast.configure();
     return (
         <div className="register">
             <span className="register__title">Register</span>
@@ -66,7 +75,7 @@ export default function Register() {
                         Register
                 </Button> 
                 {
-                    error ? <Alert severity="warning">Something went wrong!</Alert> : ''
+                    error ? <Alert style={{marginTop:"10px"}} variant="standard" severity="warning">Something went wrong!</Alert> : ''
                 }
             </form>
             <Link to="/login">

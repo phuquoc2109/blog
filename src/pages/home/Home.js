@@ -13,13 +13,13 @@ export default function Home() {
 
 
     const fetchPosts = async () => {
-        const res = await axios.get('http://localhost:5000/api/posts'+search);
+        const res = await axios.get('/posts'+search);
         setPosts(res.data)
     }
     useEffect(() => {
         fetchPosts();
     }, [search])
-    console.log(posts)
+
     return (
         <>
             <Header />
