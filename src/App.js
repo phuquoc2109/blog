@@ -12,6 +12,7 @@ import Register from './pages/register/Register';
 import Settings from './pages/settings/Settings';
 import Single from './pages/single/Single';
 import Write from './pages/write/Write';
+import NotFound from './pages/NotFound'
 
 function App() {
   const {user}= useContext(Context);
@@ -32,6 +33,7 @@ function App() {
             <Route path="/write">{user? <Write /> : <Login />}</Route>
             <Route path="/settings">{user? <Settings /> : <Login />}</Route>
             <Route path="/post/:postId"><Single /></Route>
+            <Route><NotFound /></Route>
           </Switch>
         </BrowserRouter>
       </ContextProvider>
