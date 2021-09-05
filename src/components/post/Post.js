@@ -1,10 +1,9 @@
 import React from 'react'
 import './post.scss'
 import {Link} from 'react-router-dom'
+import { PF } from '../../pages/home/Home'
 
 export default function Post({post}) {
-
-    const PF = "http://localhost:5000/images/"
 
     return (
         <div className="post">

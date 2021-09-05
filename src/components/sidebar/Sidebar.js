@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { PF } from '../../pages/home/Home';
 import './sidebar.scss'
 
 export default function Sidebar() {
     const [cats, setCat] = useState([]);
-    const PF = "http://localhost:5000/images/";
+
     const srcImg = "1630465489114c41a560464a697f8ceb7.jpg"; // In server
 
     useEffect(() => {

@@ -68,11 +68,11 @@ export default function Write() {
             }
             <form className="write__form" onSubmit={handleSubmit}>
                 <div className="write__form__group">
-                   <label htmlFor="fileInput">
+                   <label style={{cursor:'pointer'}} htmlFor="fileInput">
                        <i className="write__form__icon fas fa-plus"></i>
                    </label>
                     <input 
-                    type="file" 
+                    type="file"
                     id="fileInput" 
                     style={{display:'none'}} 
                     onChange={e => setFile(e.target.files[0])} 

@@ -4,6 +4,8 @@ import './App.scss';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Topbar from './components/topbar/Topbar';
 import { Context, ContextProvider } from './context/Context';
+import About from './pages/about/About';
+import Contact from './pages/contact/Contact';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
@@ -23,6 +25,8 @@ function App() {
           <Topbar />
           <Switch>
             <Route path="/" exact><Home /></Route>
+            <Route path="/about" ><About /></Route>
+            <Route path="/contact" ><Contact /></Route>
             <Route path="/register">{user? <Home /> : <Register />}</Route>
             <Route path="/login">{user? <Home /> : <Login />}</Route>
             <Route path="/write">{user? <Write /> : <Login />}</Route>

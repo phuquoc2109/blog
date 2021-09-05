@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../../components/sidebar/Sidebar';
 import { Logout, UpdateFailure, UpdateStart, UpdateSuccess } from '../../context/Actions';
 import { Context } from '../../context/Context';
+import { PF } from '../home/Home';
 import './settings.scss';
 
 export default function Settings() {
@@ -16,8 +17,6 @@ export default function Settings() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    const PE = "http://localhost:5000/images/"
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -78,7 +77,7 @@ export default function Settings() {
                     <label htmlFor="">Profile Picture</label>
                     <div className="settings__form__PP">
                        <div className="settings__form__PP__1">
-                        <Avatar style={{width: '100px', height:'100px'}} src={file ? URL.createObjectURL(file) : user.profilePic ? PE + user.profilePic : null}  />
+                        <Avatar style={{width: '100px', height:'100px'}} src={file ? URL.createObjectURL(file) : user.profilePic ? PF + user.profilePic : null}  />
                             <label htmlFor="fileInput">
                                 <i className="far fa-user-circle"></i>
                             </label>

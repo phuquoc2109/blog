@@ -3,13 +3,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Logout } from '../../context/Actions';
 import { Context } from '../../context/Context';
+import { PF } from '../../pages/home/Home';
 import './topbar.scss';
 
 export default function Topbar() {
     const [checkActiveNav, setCheckActiveNav] = useState(true);
     const [checkScroll, setCheckScroll] = useState(false)
-    
-    const PE = "http://localhost:5000/images/"
 
     const handleScroll = () => {
         if(document.body.scrollTop > 100 || document.documentElement.scrollTop > 100){
@@ -54,7 +53,7 @@ export default function Topbar() {
             </div>
             <div className="top__right">
                 {
-                    user ? (<Link to="/settings"><Avatar alt="Cindy Baker" src={user.profilePic ? PE +user.profilePic : null} /></Link>):
+                    user ? (<Link to="/settings"><Avatar alt="Cindy Baker" src={user.profilePic ? PF +user.profilePic : null} /></Link>):
                     ( <>
                         <Link style={{marginRight:'10px'}} className="link top__center__list__item" to="/login">LOGIN</Link>
                         <Link className="link top__center__list__item" to="/register">REGISTER</Link>

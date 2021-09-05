@@ -30,3 +30,5 @@ export default function Home() {
         </>
     )
 }
+
+export const PF = "https://blog-dpq.herokuapp.com/images/";
