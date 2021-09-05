@@ -1,18 +1,13 @@
 import { Button, TextField } from '@material-ui/core';
-import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Context } from '../../context/Context';
-import './singlePost.scss';
+import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from "react-share";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {
-    FacebookShareButton, FacebookIcon,
-    TwitterShareButton, TwitterIcon,
-    EmailShareButton,EmailIcon
-
-  } from "react-share";
+import { axiosInstance } from '../../Config';
+import { Context } from '../../context/Context';
 import { PF } from '../../pages/home/Home';
+import './singlePost.scss';
 
 export default function SinglePost() {
     const location = useLocation();
@@ -25,7 +20,7 @@ export default function SinglePost() {
 
     useEffect(()=> {
         const getPost = async () => {
-            const res = await axios.get("/posts/" + path);
+            const res = await axiosInstance.get("/posts/" + path);
             setPost(res.data);
             setTitle(res.data.title);
             setDesc(res.data.desc);
@@ -35,7 +30,7 @@ export default function SinglePost() {
 
     const handleDelete = async () =>{
         try {
-            await axios.delete(`/posts/${post._id}` , {data: {username: user.username}});
+            await axiosInstance.delete(`/posts/${post._id}` , {data: {username: user.username}});
             window.location.replace("/")
         } catch (error) {
             
@@ -45,7 +40,7 @@ export default function SinglePost() {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`/posts/${post._id}`  , {
+            await axiosInstance.put(`/posts/${post._id}`  , {
                 username: user.username,
                 title: title,
                 desc: desc

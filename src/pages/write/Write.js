@@ -1,10 +1,10 @@
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { axiosInstance } from '../../Config';
 import { Context } from '../../context/Context';
 import './write.scss';
 
@@ -33,14 +33,14 @@ export default function Write() {
             data.append("file", file);
             newPost.photo = filename;
             try {
-                await axios.post("/upload", data)
+                await axiosInstance.post("/upload", data)
             } catch (err) {
                 
             }
         };
             if(title.length > 1 && desc && categories ){
                 try {
-                    const res = await axios.post("/posts", newPost)
+                    const res = await axiosInstance.post("/posts", newPost)
                     window.location.replace("/post/" + res.data._id);
                     toast.success("Successful writing");
                 } catch (err) {
@@ -52,7 +52,7 @@ export default function Write() {
     }
 
     const fetchCats = async () => {
-        const res = await axios.get('/categories');
+        const res = await axiosInstance.get('/categories');
         setCats(res.data);
     }
     useEffect(() => {

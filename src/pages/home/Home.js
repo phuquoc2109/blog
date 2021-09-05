@@ -1,6 +1,6 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { axiosInstance } from '../../Config';
 import Header from '../../components/header/Header';
 import Posts from '../../components/posts/Posts';
 import Sidebar from '../../components/sidebar/Sidebar';
@@ -13,7 +13,7 @@ export default function Home() {
 
 
     const fetchPosts = async () => {
-        const res = await axios.get('/posts'+search);
+        const res = await axiosInstance.get('/posts'+search);
         setPosts(res.data)
     }
     useEffect(() => {

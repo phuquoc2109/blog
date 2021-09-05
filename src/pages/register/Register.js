@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import './register.scss'
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { axiosInstance } from '../../Config';
+import './register.scss';
 
 export default function Register() {
     const [username, setUsername] = useState("");
@@ -19,7 +19,7 @@ export default function Register() {
         setError(false);
         if(email && password && username){
             try {
-                const res = await axios.post("/auth/register", {
+                const res = await axiosInstance.post("/auth/register", {
                 username,
                 email,
                 password,

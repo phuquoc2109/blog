@@ -1,10 +1,10 @@
 import { Avatar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { axiosInstance } from '../../Config';
 import Sidebar from '../../components/sidebar/Sidebar';
 import { Logout, UpdateFailure, UpdateStart, UpdateSuccess } from '../../context/Actions';
 import { Context } from '../../context/Context';
@@ -34,14 +34,14 @@ export default function Settings() {
             data.append("file", file);
             updateUser.profilePic = filename;
             try {
-                await axios.post("/upload", data)
+                await axiosInstance.post("/upload", data)
             } catch (err) {
                 
             }
         };
         if(username && email && password){
             try {
-                const res = await axios.put("/users/" + user._id, updateUser)
+                const res = await axiosInstance.put("/users/" + user._id, updateUser)
                 dispatch(UpdateSuccess(res.data))
                 window.location.reload();
                 toast.success("Account edit successful")
@@ -55,7 +55,7 @@ export default function Settings() {
 
     const handleDelete = async () =>{
         try {
-            await axios.delete(`/users/${user._id}`, {data: {userId: user._id}});
+            await axiosInstance.delete(`/users/${user._id}`, {data: {userId: user._id}});
             dispatch(Logout())
             window.location.replace("/")
         } catch (error) {

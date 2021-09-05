@@ -1,13 +1,13 @@
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { axiosInstance } from '../../Config';
 import { LoginFailure, LoginStart, LoginSuccess } from '../../context/Actions';
 import { Context } from '../../context/Context';
 import './login.scss';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Login() {
@@ -22,7 +22,7 @@ export default function Login() {
         e.preventDefault();
         dispatch(LoginStart())
         try {
-            const res = await axios.post("/auth/login",{
+            const res = await axiosInstance.post("/auth/login",{
                 username: username,
                 password: password,
             })
